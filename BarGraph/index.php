@@ -10,6 +10,6 @@
         <title>OOPI</title>
     </head>
     <body>
-        <div id="data"></div>
+        <div id="graph" class="graph"></div>
     </body>
 </html>

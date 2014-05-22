@@ -44,7 +44,7 @@ var oopi = {
     assignDefaultMethods: function (className) {
         this.classMap[className].oopi_id = "";
         this.classMap[className].oopi_className = className;
-        this.classMap[className].create = function () {
+        this.classMap[className].create = function (arg) {
             var oopi_name = oopi.classMap[className].oopi_className;
             var id = oopi.newobj(oopi_name);
             for(var oopi_i in oopi.classMap[oopi_name]) {
@@ -57,7 +57,7 @@ var oopi = {
                 }
             }
             if(typeof oopi.map[oopi_name][id].construct === "function") {
-                oopi.map[oopi_name][id].construct();
+                oopi.map[oopi_name][id].construct(arg);
             }
             return oopi.map[oopi_name][id];
         }
@@ -69,10 +69,12 @@ var oopi = {
         }
     },
     assignMethod: function (className,methodName,id) {
-        this.map[className][id][methodName] = function() {
+        this.map[className][id][methodName] = function(arg) {
             var oopi_previd = oopi.classMap[className].oopi_id;
             oopi.classMap[className].oopi_id = id;
-            var r = oopi.classMap[className][methodName](arguments);
+            /*for(var i in arguments)
+                oopi.classMap[className][methodName][i] = arguments[i];*/
+            var r = oopi.classMap[className][methodName](arg);
             oopi.classMap[className].oopi_id = oopi_previd;
             return r;
         }

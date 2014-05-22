@@ -1,0 +1,30 @@
+/* 
+    Document   : style
+    Created on : May 10, 2014, 3:15:31 PM
+    Author     : stipulus
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+.graph {
+    border: 1px solid gray;
+    height: 200px;
+    margin: 0;
+    padding: 50px 0 10px 0;
+    width: 400px;
+    position: relative;
+}
+
+.bar {
+    background: linear-gradient(to right, blue, darkblue);
+    height: 200px;
+    width: 30px;
+    padding: 0;
+    margin: 0 5px;
+    bottom: 0;
+    float: left;
+}
