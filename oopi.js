@@ -1,6 +1,6 @@
 var oopi = {
     classMap: {},
-    map: {},
+    map: {}, 
     defineClass: function (name,methods) {
         if(typeof name === "undefiend" || name.length < 1)
             throw new Exception("Class must have a name");
@@ -18,9 +18,12 @@ var oopi = {
         window[name] = this.classMap[name];
     },
     parseMethods: function (methods) {
+        var parameters = {};
         for(var j in methods) {
             if(typeof methods[j] === "function") {
                 var str = methods[j].toString();
+                //need to trim whitespace
+                parameters[j] = str.substr(str.indexOf('(')+1,str.indexOf(')')-str.indexOf('(')-1).split(',');
                 var start = str.search('{');
                 var i = start+1;
                 var state = 1;
@@ -39,12 +42,13 @@ var oopi = {
                 methods[j] = new Function(str.substr(start+1,str.lastIndexOf('}')-start-1));
             }
         }
+        methods.parameters = parameters;
         return methods;
     },
     assignDefaultMethods: function (className) {
         this.classMap[className].oopi_id = "";
         this.classMap[className].oopi_className = className;
-        this.classMap[className].create = function (arg) {
+        this.classMap[className].create = function () {
             var oopi_name = oopi.classMap[className].oopi_className;
             var id = oopi.newobj(oopi_name);
             for(var oopi_i in oopi.classMap[oopi_name]) {
@@ -57,7 +61,11 @@ var oopi = {
                 }
             }
             if(typeof oopi.map[oopi_name][id].construct === "function") {
-                oopi.map[oopi_name][id].construct(arg);
+                var args = {};
+                for(var i in arguments)
+                    eval('var '+oopi.map[oopi_name][id].parameters.construct[i]+' = "'+arguments[i]+'"');
+                console.log(oopi.map[oopi_name][id].parameters.construct);
+                oopi.map[oopi_name][id].construct(arguments[0]);
             }
             return oopi.map[oopi_name][id];
         }
