@@ -1,4 +1,5 @@
 /*
+oopi js v0.1.0 (alpha)
 Copyright (c) 2014, Tyler W. Chase-Nason
 All rights reserved.
 
