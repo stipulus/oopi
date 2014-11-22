@@ -67,21 +67,12 @@ var oopi = {};
                     }
                 }
                 
-            function F(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z) {
+            function F() {
                 if(abstract)
                     throw new Error('Cannot construct abstract class.');
-                if(typeof this.construct === 'function') {
-                    //this.apply(this.construct,arguments);
-                    //IN SOVIET RUSSIA WE CALL THIS A HACK
-                    var arr = [a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z];
-                    var charArr = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
-                    for(var ii = 0;ii < arr.length;ii++)
-                        if(typeof arr[ii] === 'undefined') {
-                            eval('this.construct('+charArr.splice(0,ii).join(',')+');');
-                            break;
-                        }
-                }
-            };
+                if(typeof child.construct === 'function')
+                    child.construct.apply(this,arguments);
+            }
             F.prototype = child;
             return F;
         }

@@ -21,6 +21,5 @@ var Car = Vehicle.prototype.extend({
 var SadCar = Car.prototype.extend({
     say: function () {
         console.log(this.color+' :(');
-        this.super.say();
     }
 });

@@ -4,4 +4,6 @@ function init() {
     
     var sadCar = new SadCar('4','5','6');
     sadCar.say();
+    
+    var vehicle = new Vehicle();
 }
